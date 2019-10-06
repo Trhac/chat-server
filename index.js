@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-	res.send('Hello world!');
+    res.send('Hello world!');
+    console.log(req.body);
 });
 
 app.get('/api/courses', (req, res) => {
