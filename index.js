@@ -1,14 +1,12 @@
-console.log("Hello world!!!");
-const http = require('http');
+const express = require('express');
+const app = express();
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write(req.url);
-  res.end();
+app.get('/', (req, res) => {
+	res.send('Hello world!');
 });
-server.on('clientError', (err, socket) => {
-  socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+
+app.get('/api/courses', (req, res) => {
+	res.send([1, 2, 3]);
 });
-server.listen(8000);
 
-
+app.listen(3000, () => console.log('Listening on port 3000..'));

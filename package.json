@@ -1,0 +1,25 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "chat server",
+  "main": "index.js",
+  "scripts": {
+    "test": "test_c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trhac/chatserver.git"
+  },
+  "keywords": [
+    "chat"
+  ],
+  "author": "A&J",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Trhac/chatserver/issues"
+  },
+  "homepage": "https://github.com/Trhac/chatserver#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
