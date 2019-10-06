@@ -1,4 +1,14 @@
 console.log("Hello world!!!");
-console.log("mehe");
+const http = require('http');
 
-console.log("MEGAHESLO");
+const server = http.createServer((req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write(req.url);
+  res.end();
+});
+server.on('clientError', (err, socket) => {
+  socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+});
+server.listen(8000);
+
+
