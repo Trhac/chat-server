@@ -1,37 +1,30 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
+var express = require('express');
+var socket = require('socket.io');
 
-var message = 'Vitajte na serveri';
-var timestmp = Date.now();
-var userName = 'admin';
-
-app.use(
-	bodyParser.urlencoded({
-		extended: true
-	})
-)
-
-app.use(bodyParser.json());
-
-app.get('/', (req, res) => {
-    var JSON = {
-	time: timestmp,
-	sprava: message,
-	user: userName
-}
-    res.send(JSON);
+// App setup
+var app = express();
+var server = app.listen(4010, function(){
+    console.log('listening for requests on port 4000,');
 });
 
-app.post('/',(req, res) => {
-	res.send('Post metoda');
-	message = req.body.sprava;
-	timestmp = Date.now();
-	userName = req.body.user;
-});
+// Static files
+app.use(express.static('public'));
 
-app.get('/api/courses', (req, res) => {
-	res.send([1, 2, 3]);
-});
+// Socket setup & pass server
+var io = socket(server);
+io.on('connection', (socket) => {
 
-app.listen(4000, () => console.log('Listening on port 3000..'));
+    console.log('made socket connection', socket.id);
+
+    // Handle chat event
+    socket.on('chat', function(data){
+        // console.log(data);
+        io.sockets.emit('chat', data);
+    });
+
+    // Handle typing event
+    socket.on('typing', function(data){
+        socket.broadcast.emit('typing', data);
+    });
+
+});
